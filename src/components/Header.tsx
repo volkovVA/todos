@@ -23,12 +23,12 @@ const Header: React.FC<HeaderProps> = ({ sort, setSort }) => {
           todos
         </Typography>
         <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
-          <IconButton color="inherit" onClick={toggleTheme}>
+          <IconButton color="inherit" onClick={toggleTheme} data-testid="toggle">
             {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>
         <Tooltip title={`Sort ${sort ? 'Descending' : 'Ascending'}`}>
-          <IconButton color="inherit" onClick={() => setSort(!sort)}>
+          <IconButton color="inherit" onClick={() => setSort(!sort)} data-testid="toggle-sort">
             {sort ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
           </IconButton>
         </Tooltip>

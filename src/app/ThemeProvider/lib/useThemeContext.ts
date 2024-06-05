@@ -1,7 +1,8 @@
 import { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
 
-export const useThemeContext = () => {
+import { ThemeContext, ThemeContextProps  } from './ThemeContext';
+
+export const useThemeContext = (): ThemeContextProps  => {
   const context = useContext(ThemeContext);
 
   if (!context) {

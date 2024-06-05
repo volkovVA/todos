@@ -14,7 +14,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ remainingTodos, filter, setFilter, clearCompleted }) => {
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
-      <Typography>{remainingTodos} item{remainingTodos !== 1 ? 's' : ''} left</Typography>
+      <Typography data-testid="remaining-todos">{remainingTodos} item{remainingTodos !== 1 ? 's' : ''} left</Typography>
       <ButtonGroup>
         <Button
           variant={filter === 'all' ? 'contained' : 'outlined'}

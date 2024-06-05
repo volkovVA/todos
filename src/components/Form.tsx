@@ -30,7 +30,7 @@ const Form: React.FC<FormProps> = ({ addTodo }) => {
         value={text}
         onChange={handleChange}
       />
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+      <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} data-testid="add">
         Add
       </Button>
     </Box>
