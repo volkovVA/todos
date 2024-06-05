@@ -4,6 +4,10 @@ import Typography from '@mui/material/Typography';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import TodoFooter from './components/TodoFooter';
+import { IconButton, AppBar, Toolbar, Tooltip } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useThemeContext } from './shared/hooks/useThemeContext';
 
 export interface Todo {
   id: number;
@@ -12,6 +16,7 @@ export interface Todo {
 }
 
 const App: React.FC = () => {
+  const { toggleTheme, isDarkMode } = useThemeContext();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
 
@@ -46,8 +51,20 @@ const App: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Theme Button
+          </Typography>
+          <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
+            <IconButton color="inherit" onClick={toggleTheme}>
+              {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Tooltip>
+        </Toolbar>
+      </AppBar>
       <Typography variant="h3" gutterBottom sx={{ marginTop: 4 }}>
-        todos
+        Todo List
       </Typography>
       <TodoForm addTodo={addTodo} />
       <TodoList todos={filteredTodos} toggleTodo={toggleTodo} removeTodo={removeTodo} />
