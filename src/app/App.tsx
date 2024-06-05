@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container } from '@mui/material';
 
@@ -14,9 +14,17 @@ export interface Todo {
 }
 
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    const savedTodos = localStorage.getItem('todos');
+
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
   const [sort, setSort] = useState<boolean>(true);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = (text: string) => {
     const newTodo = { id: Date.now(), text, completed: false };
