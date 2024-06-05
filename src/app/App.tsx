@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 
-import { Container, Typography, IconButton, AppBar, Toolbar, Tooltip } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-
-import { useThemeContext } from './ThemeProvider/lib/useThemeContext';
+import { Container } from '@mui/material';
 
 import Form from '../components/Form';
 import TodoList from '../components/List';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 export interface Todo {
   id: number;
@@ -19,7 +14,6 @@ export interface Todo {
 }
 
 const App: React.FC = () => {
-  const { toggleTheme, isDarkMode } = useThemeContext();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
   const [sort, setSort] = useState<boolean>(true);
@@ -65,23 +59,7 @@ const App: React.FC = () => {
 
   return (
     <Container maxWidth="sm">
-      <AppBar position="static" sx={{ marginBottom: 2 }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            todos
-          </Typography>
-          <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
-            <IconButton color="inherit" onClick={toggleTheme}>
-              {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Tooltip>
-          <Tooltip title={`Sort ${sort ? 'Descending' : 'Ascending'}`}>
-            <IconButton color="inherit" onClick={() => setSort(!sort)}>
-              {sort ? <ArrowDownwardIcon /> : <ArrowUpwardIcon />}
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
+      <Header sort={sort} setSort={setSort} />
       <Form addTodo={addTodo} />
       <TodoList todos={filteredTodos} toggleTodo={toggleTodo} removeTodo={removeTodo} />
       <Footer
