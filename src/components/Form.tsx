@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+
 import { TextField, Button, Box} from '@mui/material';
 
-interface TodoFormProps {
+interface FormProps {
   addTodo: (text: string) => void;
 }
 
-const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
+const Form: React.FC<FormProps> = ({ addTodo }) => {
   const [text, setText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -16,6 +17,10 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <Box component="form" onSubmit={handleSubmit} mb={2}>
       <TextField
@@ -23,7 +28,7 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
         variant="outlined"
         label="Add a new task"
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleChange}
       />
       <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
         Add
@@ -32,4 +37,4 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   );
 };
 
-export default TodoForm;
+export default Form;

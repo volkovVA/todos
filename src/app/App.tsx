@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
-import TodoFooter from './components/TodoFooter';
-import { IconButton, AppBar, Toolbar, Tooltip } from '@mui/material';
+
+import { Container, Typography, IconButton, AppBar, Toolbar, Tooltip } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useThemeContext } from './shared/hooks/useThemeContext';
+
+import { useThemeContext } from './ThemeProvider/lib/useThemeContext';
+
+import Form from '../components/Form';
+import TodoList from '../components/List';
+import Footer from '../components/Footer';
 
 export interface Todo {
   id: number;
@@ -22,6 +23,7 @@ const App: React.FC = () => {
 
   const addTodo = (text: string) => {
     const newTodo = { id: Date.now(), text, completed: false };
+
     setTodos([...todos, newTodo]);
   };
 
@@ -44,6 +46,7 @@ const App: React.FC = () => {
   const filteredTodos = todos.filter(todo => {
     if (filter === 'active') return !todo.completed;
     if (filter === 'completed') return todo.completed;
+
     return true;
   });
 
@@ -66,9 +69,9 @@ const App: React.FC = () => {
       <Typography variant="h3" gutterBottom sx={{ marginTop: 4 }}>
         Todo List
       </Typography>
-      <TodoForm addTodo={addTodo} />
+      <Form addTodo={addTodo} />
       <TodoList todos={filteredTodos} toggleTodo={toggleTodo} removeTodo={removeTodo} />
-      <TodoFooter
+      <Footer
         remainingTodos={remainingTodos}
         filter={filter}
         setFilter={setFilter}

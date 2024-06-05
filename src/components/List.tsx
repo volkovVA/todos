@@ -1,19 +1,21 @@
 import React from 'react';
-import List from '@mui/material/List';
-import { Todo } from '../App';
-import TodoItem from './TodoItem';
 
-interface TodoListProps {
+import List from '@mui/material/List';
+
+import { Todo } from '../app/App';
+import Item from './Item';
+
+interface ListProps {
   todos: Todo[];
   toggleTodo: (id: number) => void;
   removeTodo: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, removeTodo }) => {
+const TodoList: React.FC<ListProps> = ({ todos, toggleTodo, removeTodo }) => {
   return (
     <List>
       {todos.map(todo => (
-        <TodoItem
+        <Item
           key={todo.id}
           todo={todo}
           toggleTodo={toggleTodo}

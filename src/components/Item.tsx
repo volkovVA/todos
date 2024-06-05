@@ -1,15 +1,17 @@
 import React from 'react';
+
 import { Checkbox, IconButton, ListItem, ListItemSecondaryAction, ListItemText } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Todo } from '../App';
 
-interface TodoItemProps {
+import { Todo } from '../app/App';
+
+interface ItemProps {
   todo: Todo;
   toggleTodo: (id: number) => void;
   removeTodo: (id: number) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleTodo, removeTodo }) => {
+const Item: React.FC<ItemProps> = ({ todo, toggleTodo, removeTodo }) => {
   return (
     <ListItem>
       <Checkbox
@@ -35,4 +37,4 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleTodo, removeTodo }) => 
   );
 };
 
-export default TodoItem;
+export default Item;

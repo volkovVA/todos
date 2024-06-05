@@ -1,14 +1,17 @@
 import React from 'react';
+
 import { Button, ButtonGroup, Typography, Box } from '@mui/material';
 
-interface TodoFooterProps {
+type Filter = 'all' | 'active' | 'completed';
+
+interface FooterProps {
   remainingTodos: number;
-  filter: 'all' | 'active' | 'completed';
-  setFilter: (filter: 'all' | 'active' | 'completed') => void;
+  filter: Filter;
+  setFilter: (filter: Filter) => void;
   clearCompleted: () => void;
 }
 
-const TodoFooter: React.FC<TodoFooterProps> = ({ remainingTodos, filter, setFilter, clearCompleted }) => {
+const Footer: React.FC<FooterProps> = ({ remainingTodos, filter, setFilter, clearCompleted }) => {
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
       <Typography>{remainingTodos} item{remainingTodos !== 1 ? 's' : ''} left</Typography>
@@ -39,4 +42,4 @@ const TodoFooter: React.FC<TodoFooterProps> = ({ remainingTodos, filter, setFilt
   );
 };
 
-export default TodoFooter;
+export default Footer;
