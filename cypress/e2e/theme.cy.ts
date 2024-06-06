@@ -8,12 +8,12 @@ describe('Theme testing', () => {
   });
 
   it('should changes the theme when the toggle is clicked', () => {
-    cy.get('[data-testid=toggle]').click();
+    cy.get('[data-testid=toggle-theme]').click();
     cy.get('body').should('have.css', 'background-color', 'rgb(18, 18, 18)');
   });
 
   it('should save the theme in localStorage', () => {
-    cy.get('[data-testid=toggle]').click();
+    cy.get('[data-testid=toggle-theme]').click();
     cy.reload();
     cy.get('body').should('have.css', 'background-color', 'rgb(18, 18, 18)');
   });

@@ -4,7 +4,7 @@ describe('Footer component', () => {
 
     Cypress._.times(3, (i) => {
       cy.get('input').eq(0).type(`Задача ${i + 1}{enter}`);
-      cy.get('[data-testid=add]').click();
+      cy.get('[data-testid=add-task]').click();
     });
   });
 
@@ -30,5 +30,6 @@ describe('Footer component', () => {
     cy.get('input[type="checkbox"]').eq(1).click();
     cy.contains('Clear completed').click();
     cy.get('[data-testid="remaining-todos"]').should('have.text', '1 item left');
+    cy.contains('li', 'Задача 1').should('not.exist');
   });
 });

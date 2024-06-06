@@ -4,7 +4,7 @@ describe('Item and List components', () => {
 
     Cypress._.times(3, (i) => {
       cy.get('input').eq(0).type(`Задача ${i + 1}{enter}`);
-      cy.get('[data-testid=add]').click();
+      cy.get('[data-testid=add-task]').click();
     });
   });
 
@@ -12,7 +12,8 @@ describe('Item and List components', () => {
     cy.get('input[type="checkbox"]').eq(0).click();
     cy.contains('Задача 1')
       .parent()
-      .should('have.css', 'text-decoration', 'line-through solid rgb(128, 128, 128)');
+      .should('have.css', 'text-decoration', 'line-through solid rgb(128, 128, 128)')
+      .and('have.css', 'color', 'rgb(128, 128, 128)');
 
   });
 
