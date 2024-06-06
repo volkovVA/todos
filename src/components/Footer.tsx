@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, ButtonGroup, Typography, Box } from '@mui/material';
 
-type Filter = 'all' | 'active' | 'completed';
+import { Filter } from '../app/App';
 
 interface FooterProps {
   remainingTodos: number;

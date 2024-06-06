@@ -13,13 +13,17 @@ export interface Todo {
   completed: boolean;
 }
 
+export type Filter = 'all' | 'active' | 'completed';
+
+const generateRandomId = () => Number(Date.now().toString() + Math.floor(Math.random() * 1000));
+
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>(() => {
     const savedTodos = localStorage.getItem('todos');
 
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<Filter>('all');
   const [sort, setSort] = useState<boolean>(true);
 
   useEffect(() => {
@@ -27,7 +31,7 @@ const App: React.FC = () => {
   }, [todos]);
 
   const addTodo = (text: string) => {
-    const newTodo = { id: Date.now(), text, completed: false };
+    const newTodo = { id: generateRandomId(), text, completed: false };
 
     setTodos([...todos, newTodo]);
   };
@@ -48,13 +52,9 @@ const App: React.FC = () => {
     setTodos(todos.filter(todo => !todo.completed));
   };
 
-  const sortedTodos = todos.sort((a, b) => {
-    if (sort) {
-      return a.text.localeCompare(b.text);
-    } else {
-      return b.text.localeCompare(a.text);
-    }
-  });
+  const sortedTodos = todos.sort((a, b) => (
+    sort ? a.text.localeCompare(b.text) : b.text.localeCompare(a.text)
+  ));
 
   const filteredTodos = sortedTodos.filter(todo => {
     if (filter === 'active') return !todo.completed;

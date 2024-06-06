@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ sort, setSort }) => {
           todos
         </Typography>
         <Tooltip title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>
-          <IconButton color="inherit" onClick={toggleTheme} data-testid="toggle">
+          <IconButton color="inherit" onClick={toggleTheme} data-testid="toggle-theme">
             {isDarkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
         </Tooltip>
