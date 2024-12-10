@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-
 import { Container } from "@mui/material";
+
+import useTodos from "../hooks/useTodos";
 
 import Form from "../components/Form";
 import TodoList from "../components/List";
@@ -15,56 +15,19 @@ export type Todo = {
 
 export type Filter = "all" | "active" | "completed";
 
-const generateRandomId = () =>
-  Number(Date.now().toString() + Math.floor(Math.random() * 1000));
-
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>(() => {
-    const savedTodos = localStorage.getItem("todos");
-
-    return savedTodos ? JSON.parse(savedTodos) : [];
-  });
-  const [filter, setFilter] = useState<Filter>("all");
-  const [sort, setSort] = useState<boolean>(true);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
-
-  const addTodo = (text: string) => {
-    const newTodo = { id: generateRandomId(), text, completed: false };
-
-    setTodos([...todos, newTodo]);
-  };
-
-  const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
-
-  const removeTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const clearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.completed));
-  };
-
-  const sortedTodos = todos.sort((a, b) =>
-    sort ? a.text.localeCompare(b.text) : b.text.localeCompare(a.text)
-  );
-
-  const filteredTodos = sortedTodos.filter((todo) => {
-    if (filter === "active") return !todo.completed;
-    if (filter === "completed") return todo.completed;
-
-    return true;
-  });
-
-  const remainingTodos = todos.filter((todo) => !todo.completed).length;
+  const {
+    filteredTodos,
+    addTodo,
+    toggleTodo,
+    removeTodo,
+    clearCompleted,
+    remainingTodos,
+    filter,
+    setFilter,
+    sort,
+    setSort,
+  } = useTodos();
 
   return (
     <Container maxWidth="sm">
