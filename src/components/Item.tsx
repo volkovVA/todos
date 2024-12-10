@@ -1,15 +1,19 @@
-import React from 'react';
+import {
+  Checkbox,
+  IconButton,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { Checkbox, IconButton, ListItem, ListItemSecondaryAction, ListItemText } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Todo } from "../app/App";
 
-import { Todo } from '../app/App';
-
-interface ItemProps {
+type ItemProps = {
   todo: Todo;
   toggleTodo: (id: number) => void;
   removeTodo: (id: number) => void;
-}
+};
 
 const Item: React.FC<ItemProps> = ({ todo, toggleTodo, removeTodo }) => {
   return (
@@ -24,12 +28,16 @@ const Item: React.FC<ItemProps> = ({ todo, toggleTodo, removeTodo }) => {
       <ListItemText
         primary={todo.text}
         sx={{
-          textDecoration: todo.completed ? 'line-through' : 'none',
-          color: todo.completed ? 'gray' : 'inherit',
+          textDecoration: todo.completed ? "line-through" : "none",
+          color: todo.completed ? "gray" : "inherit",
         }}
       />
       <ListItemSecondaryAction>
-        <IconButton edge="end" aria-label="delete" onClick={() => removeTodo(todo.id)}>
+        <IconButton
+          edge="end"
+          aria-label="delete"
+          onClick={() => removeTodo(todo.id)}
+        >
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>

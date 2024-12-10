@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import { Container } from '@mui/material';
+import { Container } from "@mui/material";
 
-import Form from '../components/Form';
-import TodoList from '../components/List';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Form from "../components/Form";
+import TodoList from "../components/List";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
-export interface Todo {
+export type Todo = {
   id: number;
   text: string;
   completed: boolean;
-}
+};
 
-export type Filter = 'all' | 'active' | 'completed';
+export type Filter = "all" | "active" | "completed";
 
-const generateRandomId = () => Number(Date.now().toString() + Math.floor(Math.random() * 1000));
+const generateRandomId = () =>
+  Number(Date.now().toString() + Math.floor(Math.random() * 1000));
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>(() => {
-    const savedTodos = localStorage.getItem('todos');
+    const savedTodos = localStorage.getItem("todos");
 
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>("all");
   const [sort, setSort] = useState<boolean>(true);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (text: string) => {
@@ -38,38 +39,42 @@ const App: React.FC = () => {
 
   const toggleTodo = (id: number) => {
     setTodos(
-      todos.map(todo =>
+      todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
   };
 
   const removeTodo = (id: number) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   const clearCompleted = () => {
-    setTodos(todos.filter(todo => !todo.completed));
+    setTodos(todos.filter((todo) => !todo.completed));
   };
 
-  const sortedTodos = todos.sort((a, b) => (
+  const sortedTodos = todos.sort((a, b) =>
     sort ? a.text.localeCompare(b.text) : b.text.localeCompare(a.text)
-  ));
+  );
 
-  const filteredTodos = sortedTodos.filter(todo => {
-    if (filter === 'active') return !todo.completed;
-    if (filter === 'completed') return todo.completed;
+  const filteredTodos = sortedTodos.filter((todo) => {
+    if (filter === "active") return !todo.completed;
+    if (filter === "completed") return todo.completed;
 
     return true;
   });
 
-  const remainingTodos = todos.filter(todo => !todo.completed).length;
+  const remainingTodos = todos.filter((todo) => !todo.completed).length;
 
   return (
     <Container maxWidth="sm">
       <Header sort={sort} setSort={setSort} />
       <Form addTodo={addTodo} />
-      <TodoList todos={filteredTodos} toggleTodo={toggleTodo} removeTodo={removeTodo} />
+      <TodoList
+        todos={filteredTodos}
+        toggleTodo={toggleTodo}
+        removeTodo={removeTodo}
+      />
       <Footer
         remainingTodos={remainingTodos}
         filter={filter}

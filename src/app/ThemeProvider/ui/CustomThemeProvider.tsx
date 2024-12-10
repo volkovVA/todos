@@ -1,18 +1,20 @@
-import React, { useMemo, useState, useEffect, ReactNode } from 'react';
+import { useMemo, useState, useEffect, ReactNode } from "react";
 
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 
-import { ThemeContext } from '../lib/ThemeContext';
+import { ThemeContext } from "../lib/ThemeContext";
 
-export const CustomThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const CustomThemeProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem("theme");
 
     return savedTheme ? JSON.parse(savedTheme) : false;
   });
 
   useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(isDarkMode));
+    localStorage.setItem("theme", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
   const toggleTheme = () => {
@@ -23,7 +25,7 @@ export const CustomThemeProvider: React.FC<{ children: ReactNode }> = ({ childre
     () =>
       createTheme({
         palette: {
-          mode: isDarkMode ? 'dark' : 'light',
+          mode: isDarkMode ? "dark" : "light",
         },
       }),
     [isDarkMode]

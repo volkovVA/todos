@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
-import { TextField, Button, Box} from '@mui/material';
+import { TextField, Button, Box } from "@mui/material";
 
-interface FormProps {
+type FormProps = {
   addTodo: (text: string) => void;
-}
+};
 
 const Form: React.FC<FormProps> = ({ addTodo }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (text.trim()) {
       addTodo(text);
-      setText('');
+      setText("");
     }
   };
 
@@ -30,7 +30,13 @@ const Form: React.FC<FormProps> = ({ addTodo }) => {
         value={text}
         onChange={handleChange}
       />
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }} data-testid="add-task">
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        sx={{ mt: 2 }}
+        data-testid="add-task"
+      >
         Add
       </Button>
     </Box>
